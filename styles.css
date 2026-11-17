@@ -13,16 +13,14 @@
   --accent: #e8843c; /* naranja del logo, solo para el puntito del menú */
 
   --island-header-h: 84px;
-  --menu-row-h: 52px;
-  --island-open-h: calc(var(--island-header-h) + var(--menu-row-h));
-
-  --island-header-h: 84px;
   --menu-links-h: 46px;
   --menu-chip-h: 44px;
-  /* 30% más angosto que el diseño original (760px → 532px)
-     Abierto: +10% de ese ancho (532 → 585px) */
+
+  /* 30% más angosto que el diseño original (760px → 532px).
+     Abierto: panel grande estilo Sunday (ancho generoso, alto contenido) */
   --island-w: min(532px, calc(100vw - 24px));
-  --island-w-open: min(585px, calc(100vw - 24px));
+  --island-w-open: min(1040px, calc(100vw - 48px));
+  --menu-body-h: 400px;
   --island-radius: 18px;
 }
 
@@ -37,7 +35,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body.menu-open { overflow: visible; }
+body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra el menú */
 
 /* ════════════════════════════════════════════════
    DYNAMIC ISLAND NAVBAR
@@ -84,8 +82,16 @@ body.menu-open { overflow: visible; }
 
 .island.is-open {
   width: var(--island-w-open);
-  height: calc(var(--island-header-h) + 6px + var(--menu-links-h) + 8px + var(--menu-chip-h) + 14px);
+  height: calc(var(--island-header-h) + var(--menu-body-h) + 72px);
   border-radius: 20px;
+}
+
+/* Abierto: el glass se refuerza un poco para legibilidad del panel,
+   pero sigue translúcido — el fondo real se ve a través */
+.island.is-open::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
 }
 
 /* Estado revelado: hover · zona superior · foco por teclado · menú abierto · táctil */
@@ -222,77 +228,100 @@ body.menu-open { overflow: visible; }
   transition-delay: 0.16s;
 }
 
-/* — menú compacto en dos filas: links + chip de video — */
+/* — panel abierto estilo Sunday: links grandes a la izquierda + video a la derecha — */
 .island-body {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
+  flex: 0 0 var(--menu-body-h);
+  height: var(--menu-body-h);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
   align-items: center;
-  gap: 8px;
-  padding: 6px 18px 14px;
+  padding: 8px 48px 0;
 }
 
 .menu-links {
   list-style: none;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 2px;
-  flex: 0 0 var(--menu-links-h);
+  gap: 10px;
 }
 
 .menu-link {
-  font-size: 15px;
+  font-size: 34px;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
-  line-height: 1;
-  padding: 10px 12px;
-  border-radius: 10px;
-  white-space: nowrap;
-  transition: background 0.2s ease;
+  line-height: 1.25;
+  width: fit-content;
+  transition: opacity 0.2s ease, transform 0.25s ease;
 }
-.menu-link:hover { background: rgba(17, 17, 17, 0.07); }
+.menu-link:hover { opacity: 0.55; transform: translateX(6px); }
 
-/* — chip de video (placeholder compacto) — */
-.video-chip {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: var(--menu-chip-h);
-  padding: 0 14px 0 6px;
-  border-radius: 999px;
-  background: var(--gray-box);
+/* — placeholder de video (box grande con play centrado) — */
+.video-slot {
+  height: 320px;
+  border-radius: 16px;
+  background: rgba(236, 236, 236, 0.75); /* gris claro semitransparente: deja ver el fondo */
   border: 1.5px dashed var(--gray-border);
-  color: var(--gray-label);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap; /* la etiqueta completa nunca se parte en dos líneas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
-.video-chip .play-mini {
-  width: 26px;
-  height: 26px;
+.play-btn {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: #fff;
   color: var(--ink);
   display: grid;
   place-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease;
 }
-.video-chip .play-mini svg { margin-left: 1px; }
-.video-chip:hover { background: var(--gray-box-2); }
+.video-slot:hover .play-btn { transform: scale(1.08); }
+.play-btn svg { margin-left: 3px; }
 
-/* — backdrop oscuro suave — */
+.video-slot-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-label);
+}
+
+/* — footer del panel (claims estilo Sunday) — */
+.island-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 48px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8a8a;
+  white-space: nowrap;
+}
+
+.footer-cta { display: inline-flex; align-items: center; gap: 8px; }
+.footer-cta .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* — backdrop oscuro — */
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s;
@@ -560,7 +589,15 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
    ════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  .menu-link { font-size: 14px; padding: 9px 9px; }
+  .island-body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 8px 28px 0;
+    overflow-y: auto;
+  }
+  .menu-link { font-size: 26px; }
+  .video-slot { height: 220px; }
+  .island-footer { padding: 16px 28px; font-size: 12px; gap: 10px; }
 }
 
 @media (max-width: 680px) {
@@ -569,7 +606,7 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
     left: 10px;
     right: 10px;
     width: auto;
-    height: auto;
+    height: calc(100dvh - 20px);
     border-radius: 18px;
     transform: none;
   }
@@ -580,19 +617,24 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   .island-toggle { width: 46px; height: 46px; border-radius: 14px; }
 
   .island-body {
-    align-items: stretch;
-    padding: 6px 14px 14px;
-    gap: 8px;
-  }
-  .menu-links {
-    flex: none;
+    flex: 1 1 auto;
     height: auto;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 2px;
+    min-height: 0;
+    padding: 14px 24px;
   }
-  .menu-link { font-size: 17px; padding: 11px 14px; }
-  .video-chip { width: 100%; justify-content: center; }
+  .menu-links { gap: 4px; }
+  .menu-link { font-size: 24px; }
+  .video-slot { height: 200px; border-radius: 18px; }
+  .play-btn { width: 54px; height: 54px; }
+
+  .island-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 12px;
+    padding: 14px 24px 18px;
+    white-space: normal;
+  }
 
   .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-media { height: 240px; }

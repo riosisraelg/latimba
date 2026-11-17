@@ -58,7 +58,8 @@ nav.island
 ├─ ::before            → capa glass "iced" translúcida [z:0]
 ├─ .island-header      → logo · wordmark "LaTimba" · toggle     [z:1]
 └─ .island-menu
-   └─ .island-body     → dos filas centradas: .menu-links + .video-chip
+   ├─ .island-body     → panel: .menu-links (columna) | .video-slot
+   └─ .island-footer   → claims: Querétaro · clase+baile · Síguenos
 ```
 
 ### 3.1 Sistema de estados
@@ -102,23 +103,25 @@ stateDiagram-v2
 
 `script.js` expone `openMenu()` / `closeMenu()` que sincronizan:
 
-- La clase `.is-open` en la isla (dispara expansión de `height`/`width`)
+- La clase `.is-open` en la isla (dispara expansión del panel)
 - La clase `menu-open` en `<body>` (bloquea scroll y muestra el backdrop)
 - Los atributos `aria-expanded` y `aria-label` del toggle
 
-Los listeners de cierre: `backdrop.click`, `keydown (Escape)` y los links
-(`preventDefault` + `scrollIntoView` tras un `setTimeout` de 350ms para que
-la animación de colapso no compita con el scroll).
+Los listeners de cierre: `backdrop.click`, `keydown (Escape)`, links
+(`preventDefault` + `scrollIntoView` tras 350ms) y **gestos de scroll**
+(`wheel` / `touchmove` en `document`, sin `preventDefault`): con el menú
+abierto el body está bloqueado; el primer gesto cierra el panel, libera el
+lock y el desplazamiento continúa de forma natural — funciona igual con
+scroll natural de Mac en cualquier dirección.
 
 ### 3.4 Tokens de diseño (variables CSS)
 
 ```css
 :root {
-  --island-w: min(532px, calc(100vw - 24px));       /* 30% más angosto */
-  --island-w-open: min(585px, calc(100vw - 24px));  /* +10% al abrir */
+  --island-w: min(532px, calc(100vw - 24px));        /* 30% más angosto */
+  --island-w-open: min(1040px, calc(100vw - 48px));  /* panel grande estilo Sunday */
   --island-header-h: 84px;
-  --menu-links-h: 46px;  /* fila de links */
-  --menu-chip-h: 44px;   /* fila del chip de video */
+  --menu-body-h: 400px;  /* cuerpo del panel (links | video) */
   --island-radius: 18px;
   --accent: #e8843c;     /* naranja del logo */
 }

@@ -35,46 +35,51 @@ el logo y el hamburguesa están ocultos.
 completa: logo circular · wordmark · botón hamburguesa (box gris claro,
 igual que la referencia).
 
-**Expandido** — clic en el hamburguesa: la isla crece y muestra links +
-placeholder de video; el botón rota a ✕.
+**Expandido** — clic en el hamburguesa: la isla crece a un **panel grande**
+(links apilados + video) y el botón rota a ✕. El scroll de la página se
+bloquea; **cualquier gesto de scroll** (rueda o swipe, en cualquier
+dirección — scroll natural de Mac incluido) cierra el panel y libera el
+desplazamiento para navegar.
 
 ### 2.2 Medidas y tokens
 
 | Propiedad | Valor |
 | --------- | ----- |
 | Ancho compacto | `min(532px, 100vw - 24px)` — **30% más angosto** que el diseño original (760px) |
-| Ancho expandido | `min(585px, 100vw - 24px)` — **solo +10%** del ancho compacto (532px) |
+| Ancho expandido | `min(1040px, 100vw - 48px)` — panel grande estilo Sunday |
 | Altura del header | `84px` |
-| Altura expandida | `202px` — header (84px) + links (46px) + chip de video (44px); expansión contenida en dos filas |
+| Altura expandida | `556px` — header (84px) + cuerpo (400px) + footer de claims (72px) |
 | Radio de esquinas | `18px` — **cuadrado con esquinas levemente redondeadas** |
 | Curva de animación | `cubic-bezier(0.32, 0.72, 0, 1)` (iOS), 0.5–0.55s |
 
 ### 2.3 Glass translúcido "iced"
 
-El contenedor no es blanco sólido: es una **capa glass helada y
-transparente** aplicada en `::before` para poder desvanecerla en reposo y
-dejar ver el fondo real de la página al hacer scroll:
+El contenedor nunca es blanco sólido: es una **capa glass helada y
+transparente** aplicada en `::before`, presente tanto en el estado
+compacto/revelado como en el panel abierto (con blur ligeramente mayor
+para legibilidad). El fondo real de la página siempre se ve a través:
 
 ```css
+/* revelado */
 background: linear-gradient(135deg,
   rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22));
-border: 1px solid rgba(255, 255, 255, 0.5);
 backdrop-filter: blur(16px) saturate(150%);
-box-shadow:
-  0 12px 40px rgba(0, 0, 0, 0.08),
-  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+/* panel abierto (reforzado) */
+background: linear-gradient(135deg,
+  rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+backdrop-filter: blur(20px) saturate(160%);
 ```
 
-Efecto buscado: vidrio esmerilado liviano — difumina y aclara lo que hay
-debajo, pero **deja ver el fondo real de la página** a través de la píldora.
+El box de video también es semitransparente (`rgba(236,236,236,.75)`)
+para no tapar el fondo. Efecto buscado: vidrio esmerilado liviano que
+difumina pero **deja ver el fondo real de la página**.
 
-### 2.4 Chip de video (placeholder)
+### 2.4 Placeholder de video
 
-Píldora gris con borde punteado, mini círculo blanco con icono de **play**
-y la etiqueta "VIDEO · ASÍ ES UNA TIMBA". Vive en su propia fila centrada
-debajo de los links — como la fila no se parte, la etiqueta completa es
-siempre visible. Comunica, sin ocupar espacio, que ahí irá el video de
-LaTimba.
+Box **gris claro semitransparente** con borde punteado, icono de **play**
+en un círculo blanco centrado y etiqueta "VIDEO · ASÍ ES UNA TIMBA". Ocupa
+la mitad derecha del panel; comunica que ahí irá el video de LaTimba.
 
 ---
 

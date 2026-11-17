@@ -55,6 +55,20 @@ menuLinks.forEach((link) => {
   });
 });
 
+/* Scroll lock + cierre por gesto:
+   Con el menú abierto la página queda bloqueada (body.menu-open → overflow hidden),
+   pero CUALQUIER gesto de scroll — rueda o swipe táctil, en cualquier dirección
+   (con scroll natural de Mac incluido) — cierra el menú y devuelve el control
+   para navegar. El propio gesto continúa scrolleando la página. */
+function gestureClose(e) {
+  if (!island.classList.contains('is-open')) return;
+  closeMenu();
+  // No hacemos preventDefault: tras liberar el lock, el desplazamiento sigue natural.
+}
+
+document.addEventListener('wheel', gestureClose, { passive: true });
+document.addEventListener('touchmove', gestureClose, { passive: true });
+
 /* Dispositivos sin hover (touch): el navbar permanece siempre revelado */
 const hoverMQ = window.matchMedia('(hover: none)');
 const syncHoverMode = () => island.classList.toggle('no-hover', hoverMQ.matches);

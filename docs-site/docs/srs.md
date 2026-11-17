@@ -73,20 +73,22 @@ permanecer visible aunque el cursor salga del área.
 Al sacar el cursor del área del navbar — siempre que el menú no esté
 abierto — debe volver suavemente al estado minimalista (solo "LaTimba").
 
-**RF-05 — Menú desplegable compacto**
-El botón hamburguesa debe expandir la isla de forma contenida: la píldora
-crea **un 10% adicional de ancho** (631px → 694px) y una **sola fila
-compacta** debajo del header, con:
-
-- Links de navegación en horizontal: *Clases, Eventos, Galería, Nosotros,
-  Contacto*
-- Un **chip de video** placeholder: píldora pequeña con icono de **play** y
-  la etiqueta "Video", que indica que ahí irá el video de LaTimba
+**RF-05 — Menú desplegable (panel grande estilo Sunday)**
+El botón hamburguesa debe expandir la isla a un **panel grande**: links de
+navegación apilados en grande a la izquierda (*Clases, Eventos, Galería,
+Nosotros, Contacto*) y un **placeholder de video** a la derecha (box gris
+claro semitransparente con icono de **play** centrado y etiqueta "VIDEO ·
+ASÍ ES UNA TIMBA"). Un pie de panel lleva los claims: *"Ritmos latinos en
+Querétaro · 1 hora de clase · luego, a bailar · Síguenos"*.
 
 **RF-06 — Cierre del menú**
 El menú debe cerrarse mediante: clic en la ✕ (el botón se transforma de
-hamburguesa a ✕), clic en el backdrop oscuro, tecla `++escape++`, o clic en
-cualquier link (con scroll suave a la sección).
+hamburguesa a ✕), clic en el backdrop oscuro, tecla `++escape++`, clic en
+cualquier link (con scroll suave a la sección), o **cualquier gesto de
+scroll** (rueda o swipe táctil, en cualquier dirección — incluido el scroll
+natural de Mac). Con el menú abierto el scroll de la página está bloqueado;
+el gesto que cierra libera el bloqueo y el desplazamiento continúa de
+forma natural para navegar.
 
 **RF-07 — Navegación por anclas**
 Los links del menú deben hacer scroll suave a las secciones correspondientes
@@ -102,9 +104,9 @@ sección, cada uno con ancla propia; al hacer clic en el título se navega al
 heading de la sección.
 
 **RF-09 — Responsive**
-En pantallas ≤ 680px, el menú abierto se reorganiza en una **columna
-compacta** (links apilados + chip de video), manteniendo el tamaño del
-navbar contenido — nunca a pantalla completa.
+En pantallas ≤ 680px el panel abierto ocupa casi toda la pantalla
+(`100dvh` menos margen) en una columna; entre 680 y 900px se apilan links
+y video en una columna con scroll interno.
 
 **RF-10 — Dispositivos táctiles**
 En dispositivos sin hover, el navbar debe permanecer **siempre revelado**
