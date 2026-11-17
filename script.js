@@ -54,3 +54,9 @@ menuLinks.forEach((link) => {
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 350);
   });
 });
+
+/* Dispositivos sin hover (touch): el navbar permanece siempre revelado */
+const hoverMQ = window.matchMedia('(hover: none)');
+const syncHoverMode = () => island.classList.toggle('no-hover', hoverMQ.matches);
+syncHoverMode();
+hoverMQ.addEventListener('change', syncHoverMode);

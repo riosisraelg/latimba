@@ -1,0 +1,24 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Playwright CLI (sesiones de prueba)
+.playwright-cli/
+
+# Dependencias / builds (no aplican hoy, por si el proyecto crece)
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Entornos
+.env
+.env.*

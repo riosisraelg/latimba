@@ -15,6 +15,11 @@
   --island-header-h: 84px;
   --menu-grid-h: 340px;
   --island-open-h: calc(var(--island-header-h) + 24px + var(--menu-grid-h) + 66px + 4px);
+
+  /* 17% más angosto que el diseño original (760px → 631px · 1120px → 930px) */
+  --island-w: min(631px, calc(100vw - 24px));
+  --island-w-open: min(930px, calc(100vw - 24px));
+  --island-radius: 18px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,14 +45,10 @@ body.menu-open { overflow: hidden; }
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  width: min(760px, calc(100vw - 24px));
+  width: var(--island-w);
   height: var(--island-header-h);
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 42px;
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.10),
-    0 2px 8px rgba(0, 0, 0, 0.05);
+  background: transparent;
+  border-radius: var(--island-radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -57,14 +58,42 @@ body.menu-open { overflow: hidden; }
     border-radius 0.55s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.island.is-open {
-  width: min(1120px, calc(100vw - 24px));
-  height: var(--island-open-h);
-  border-radius: 36px;
+/* Capa "iced glass" del contenedor: aparece con el hover y se desvanece en reposo */
+.island::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.42));
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s cubic-bezier(0.32, 0.72, 0, 1);
 }
+
+.island.is-open {
+  width: var(--island-w-open);
+  height: var(--island-open-h);
+  border-radius: 20px;
+}
+
+/* Estado revelado: hover · foco por teclado · menú abierto · dispositivo táctil */
+.island:hover::before,
+.island:focus-within::before,
+.island.is-open::before,
+.island.no-hover::before { opacity: 1; }
 
 /* — fila superior — */
 .island-header {
+  position: relative;
+  z-index: 1;
   flex: 0 0 var(--island-header-h);
   height: var(--island-header-h);
   display: grid;
@@ -77,6 +106,26 @@ body.menu-open { overflow: hidden; }
 .island-side.left  { justify-content: flex-start; }
 .island-side.right { justify-content: flex-end; }
 
+/* — logo: oculto en reposo, aparece con hover — */
+.island-logo {
+  display: block;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition:
+    opacity   0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.island:hover .island-logo,
+.island:focus-within .island-logo,
+.island.is-open .island-logo,
+.island.no-hover .island-logo {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
 .island-logo img {
   width: 52px;
   height: 52px;
@@ -88,9 +137,9 @@ body.menu-open { overflow: hidden; }
 .island-logo:hover img { transform: scale(1.06); }
 
 .island-wordmark {
-  font-size: 28px;
+  font-size: 27px;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.05em;
   color: var(--ink);
   text-decoration: none;
   user-select: none;
@@ -98,21 +147,37 @@ body.menu-open { overflow: hidden; }
 }
 .island-wordmark:hover { opacity: 0.6; }
 
-/* — botón hamburguesa / cerrar — */
+/* — botón hamburguesa / cerrar: oculto en reposo, aparece con hover — */
 .island-toggle {
   position: relative;
   width: 56px;
   height: 56px;
   border: none;
-  border-radius: 18px;
-  background: #f2f2f2;
+  border-radius: 12px;
+  background: rgba(17, 17, 17, 0.06);
   color: var(--ink);
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.25s ease;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition:
+    background 0.25s ease,
+    opacity   0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.island-toggle:hover { background: #e7e7e7; }
+
+.island:hover .island-toggle,
+.island:focus-within .island-toggle,
+.island.is-open .island-toggle,
+.island.no-hover .island-toggle {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.island-toggle:hover { background: rgba(17, 17, 17, 0.1); }
 
 .island-toggle svg {
   position: absolute;
@@ -126,6 +191,8 @@ body.menu-open { overflow: hidden; }
 
 /* — contenido expandible — */
 .island-menu {
+  position: relative;
+  z-index: 1;
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -179,7 +246,7 @@ body.menu-open { overflow: hidden; }
 /* — placeholder de video — */
 .video-slot {
   height: 320px;
-  border-radius: 24px;
+  border-radius: 16px;
   background: var(--gray-box);
   border: 1.5px dashed var(--gray-border);
   display: flex;
@@ -447,7 +514,7 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
     right: 10px;
     width: auto;
     height: calc(100dvh - 20px);
-    border-radius: 28px;
+    border-radius: 18px;
     transform: none;
   }
 
@@ -487,7 +554,18 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .island, .island-body, .island-footer, .island-toggle svg, .backdrop {
+  .island, .island::before, .island-body, .island-footer, .island-toggle svg, .island-logo, .island-toggle, .backdrop {
     transition: none !important;
+  }
+}
+
+/* Fallback CSS para dispositivos sin hover (además de la clase .no-hover de JS):
+   el navbar permanece siempre revelado */
+@media (hover: none) {
+  .island::before { opacity: 1; }
+  .island-logo, .island-toggle {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
   }
 }
