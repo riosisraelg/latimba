@@ -60,3 +60,11 @@ const hoverMQ = window.matchMedia('(hover: none)');
 const syncHoverMode = () => island.classList.toggle('no-hover', hoverMQ.matches);
 syncHoverMode();
 hoverMQ.addEventListener('change', syncHoverMode);
+
+/* Zona interactiva: toda la franja superior de la pantalla revela el navbar.
+   Así funciona aunque el mouse no pase exactamente sobre la píldora. */
+const HOVER_ZONE_HEIGHT = 150; // px desde el borde superior
+
+document.addEventListener('mousemove', (e) => {
+  island.classList.toggle('is-hover', e.clientY <= HOVER_ZONE_HEIGHT);
+});

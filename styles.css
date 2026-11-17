@@ -84,8 +84,9 @@ body.menu-open { overflow: hidden; }
   border-radius: 20px;
 }
 
-/* Estado revelado: hover · foco por teclado · menú abierto · dispositivo táctil */
+/* Estado revelado: hover · zona superior · foco por teclado · menú abierto · táctil */
 .island:hover::before,
+.island.is-hover::before,
 .island:focus-within::before,
 .island.is-open::before,
 .island.no-hover::before { opacity: 1; }
@@ -118,6 +119,7 @@ body.menu-open { overflow: hidden; }
 }
 
 .island:hover .island-logo,
+.island.is-hover .island-logo,
 .island:focus-within .island-logo,
 .island.is-open .island-logo,
 .island.no-hover .island-logo {
@@ -169,6 +171,7 @@ body.menu-open { overflow: hidden; }
 }
 
 .island:hover .island-toggle,
+.island.is-hover .island-toggle,
 .island:focus-within .island-toggle,
 .island.is-open .island-toggle,
 .island.no-hover .island-toggle {
