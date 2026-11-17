@@ -504,6 +504,37 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
 }
 .footer-col { display: flex; flex-direction: column; gap: 12px; }
 
+/* — barra de crédito (patrón ABAQ) — */
+.credit-bar {
+  border-top: 1.5px solid var(--gray-border);
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--gray-label);
+}
+
+.credit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-label);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.credit-link b {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.credit-link:hover { color: #6b6b6b; }
+.credit-link:hover b { color: #6b6b6b; }
+
 /* ════════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════════ */

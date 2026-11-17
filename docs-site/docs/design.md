@@ -108,7 +108,10 @@ su contenido sigue siendo placeholder gris:
 6. **Galería** — `h2` anclable (`#galeria`) + grid 6×1 de imágenes cuadradas
 7. **Nosotros** — `h2` anclable (`#nosotros`) + media y párrafos placeholder
 8. **Contacto** — `h2` anclable (`#contacto`) + card central con titular y botón
-9. **Footer** — 3 columnas de links placeholder
+9. **Footer** — 3 columnas de links placeholder + barra de crédito con
+   **[Lyratech](https://lyratech.com.mx/)**: `© 2026 LaTimba` a la izquierda
+   y "Diseñada y desarrollada por **Lyratech** ↗" a la derecha (patrón del
+   footer de ABAQ)
 
 Todas las secciones tienen `scroll-margin-top: 130px` para que al navegar
 desde el navbar o desde un título, el heading quede visible bajo el navbar
