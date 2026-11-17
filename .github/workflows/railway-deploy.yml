@@ -1,0 +1,27 @@
+name: Deploy a Railway
+
+# Cada push a main despliega la landing en Railway (ambiente development).
+# Requiere el secreto RAILWAY_TOKEN (token de proyecto de Railway).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permite dispararlo manualmente desde la pestaña Actions
+
+concurrency:
+  group: railway-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy a Railway
+        run: railway up --ci --project 2b2609d6-1399-4e3d-8fa3-51a888848040 --service e5a37b4c-64b9-4edc-88ae-cb328745c2f4 --environment 817f3fd8-be22-4a38-9810-9560566106eb
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

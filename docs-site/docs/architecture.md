@@ -35,6 +35,7 @@ latimba/
 ├─ assets/
 │  └─ latimba-logo.jpg     # Isotipo (descargado a local)
 ├─ preview/                # Screenshots de verificación
+├─ .github/workflows/      # Deploy automático a Railway (GitHub Actions)
 └─ docs-site/              # Repo de documentación (Zensical)
    ├─ zensical.toml        # Configuración del sitio de docs
    ├─ pyproject.toml       # Proyecto uv (zensical como dev-dependency)
@@ -170,15 +171,34 @@ flowchart LR
 
 El sitio se publica en Railway:
 
-- **Proyecto**: `latimbaqro.org` (ambiente `production`).
-- **Servicio**: conectado al repo público
-  [`riosisraelg/latimba`](https://github.com/riosisraelg/latimba), rama
-  `main` — cada push dispara un deploy automático.
-- **Dominio público**: https://latimbaqroorg-production.up.railway.app
+- **Proyecto**: `latimbaqro.org`, único ambiente `development`
+  (production se retiró; el dominio activo es el de este ambiente).
+- **Dominio público**: https://latimbaqroorg-development.up.railway.app
   (service domain `*.up.railway.app`, `targetPort: 80`).
 - **Imagen**: `Dockerfile` mínimo — `nginx:alpine` copiando
   `index.html`, `styles.css`, `script.js` y `assets/` a
   `/usr/share/nginx/html`. Sin build step ni dependencias de runtime.
+
+### 6.1 CI/CD con GitHub Actions
+
+La integración GitHub de Railway (GitHub App con webhooks) no entregaba
+eventos de push para este repo: los commits a `main` no disparaban builds.
+El deploy automático se resuelve con un **token de proyecto** de Railway
+(`RAILWAY_TOKEN`) y un workflow propio:
+
+```text
+push a main ──▶ GitHub Actions (railway-deploy.yml)
+                   └─ railway up --ci --project … --service … --environment …
+                        (RAILWAY_TOKEN como secreto del repo)
+```
+
+- **Workflow**: `.github/workflows/railway-deploy.yml` — corre en cada
+  push a `main` (y en modo manual con `workflow_dispatch`).
+- **Secreto**: `RAILWAY_TOKEN` con el valor del token de proyecto
+  (generado en Railway → Project → Settings → Tokens). El token vive solo
+  en los secrets del repo; nunca se commitea.
+- **Deploy local**: `railway up` desde el repo (enlace apuntando al
+  ambiente `development`).
 
 Solo la landing se despliega; `docs-site/` y `preview/` quedan fuera de
 la imagen (documentación de desarrollo, se construye localmente con

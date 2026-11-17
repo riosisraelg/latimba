@@ -13,6 +13,8 @@ latimba/
 ├── Dockerfile      # nginx:alpine para el deploy en Railway
 ├── assets/
 │   └── latimba-logo.jpg
+├── .github/
+│   └── workflows/  # Deploy automático a Railway (GitHub Actions)
 ├── docs-site/      # Documentación (Zensical + uv)
 └── preview/        # Screenshots de referencia
 ```
@@ -63,11 +65,16 @@ open index.html
 
 ## Despliegue
 
-El sitio está publicado en **https://latimbaqroorg-production.up.railway.app**.
+El sitio está publicado en **https://latimbaqroorg-development.up.railway.app**.
 
-- Proyecto Railway: `latimbaqro.org` (servicio conectado a `main` de este
-  repo — cada push dispara un deploy automático).
+- Proyecto Railway: `latimbaqro.org`, ambiente `development`.
+- **Auto-deploy**: cada push a `main` dispara el workflow
+  `.github/workflows/railway-deploy.yml` (GitHub Actions), que ejecuta
+  `railway up` con el secreto `RAILWAY_TOKEN` (token de proyecto de
+  Railway).
 - Repo público: https://github.com/riosisraelg/latimba
 - El `Dockerfile` es mínimo: `nginx:alpine` sirviendo la landing en el
   puerto 80, sin build step.
+- Deploy manual: `railway up` (el repo local está enlazado al proyecto y
+  ambiente) o desde la pestaña *Actions* de GitHub.
 - Local, para validar el Dockerfile: `docker build -t latimba . && docker run -p 8080:80 latimba`
