@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LATIMBA — Ritmos latinos en Querétaro</title>
+  <link rel="icon" type="image/jpeg" href="assets/latimba-logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════ NAVBAR · DYNAMIC ISLAND (única parte "real") ══════════════ -->
+  <div class="backdrop" id="backdrop"></div>
+
+  <nav class="island" id="island" aria-label="Navegación principal">
+
+    <!-- Fila superior: logo · wordmark · botón menú -->
+    <div class="island-header">
+      <div class="island-side left">
+        <a href="#top" class="island-logo" id="logoLink" aria-label="LATIMBA · inicio">
+          <img src="assets/latimba-logo.jpg" alt="Logo de LATIMBA" />
+        </a>
+      </div>
+
+      <a href="#top" class="island-wordmark" id="wordmarkLink">LATIMBA</a>
+
+      <div class="island-side right">
+        <button class="island-toggle" id="menuToggle" aria-expanded="false" aria-controls="islandMenu" aria-label="Abrir menú">
+          <svg class="icon-burger" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <line x1="3.5" y1="9"  x2="20.5" y2="9"  stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="3.5" y1="15" x2="20.5" y2="15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <line x1="5.5" y1="5.5"  x2="18.5" y2="18.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <line x1="18.5" y1="5.5" x2="5.5"  y2="18.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido expandible -->
+    <div class="island-menu" id="islandMenu">
+      <div class="island-body">
+        <ul class="menu-links">
+          <li><a href="#clases"   class="menu-link">Clases</a></li>
+          <li><a href="#eventos"  class="menu-link">Eventos</a></li>
+          <li><a href="#galeria"  class="menu-link">Galería</a></li>
+          <li><a href="#nosotros" class="menu-link">Nosotros</a></li>
+          <li><a href="#contacto" class="menu-link">Contacto</a></li>
+        </ul>
+
+        <!-- Placeholder de video -->
+        <figure class="video-slot" aria-label="Espacio reservado para video de LATIMBA">
+          <span class="play-btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26">
+              <path d="M8.5 5.5v13l11-6.5z" fill="currentColor"/>
+            </svg>
+          </span>
+          <figcaption class="video-slot-label">Video · Así es una timba</figcaption>
+        </figure>
+      </div>
+
+      <div class="island-footer">
+        <span>Ritmos latinos en Querétaro</span>
+        <span>1 hora de clase · luego, a bailar</span>
+        <span class="footer-cta">Síguenos <i class="dot"></i></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════ RESTO DE LA PÁGINA · WIREFRAME EN ESCALA DE GRISES ══════════════ -->
+  <main class="page" id="top">
+
+    <!-- HERO -->
+    <section class="wf-section hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="ph-tag">Wireframe · Solo el navbar es real</span>
+          <div class="ph-bar h1 w-90"></div>
+          <div class="ph-bar h1 w-70"></div>
+          <div class="ph-bar line w-80"></div>
+          <div class="ph-bar line w-60"></div>
+          <div class="hero-ctas">
+            <div class="ph-btn dark">Botón</div>
+            <div class="ph-btn">Botón</div>
+          </div>
+        </div>
+        <div class="ph-media hero-media"><span>Imagen / Video</span></div>
+      </div>
+    </section>
+
+    <!-- MARQUESINA DE RITMOS -->
+    <section class="wf-section marquee-strip">
+      <div class="ph-bar line w-100"></div>
+    </section>
+
+    <!-- DATOS -->
+    <section class="wf-section stats">
+      <div class="stats-grid">
+        <div class="ph-card stat"><div class="ph-bar h2 w-40"></div><div class="ph-bar line w-80"></div></div>
+        <div class="ph-card stat"><div class="ph-bar h2 w-40"></div><div class="ph-bar line w-80"></div></div>
+        <div class="ph-card stat"><div class="ph-bar h2 w-40"></div><div class="ph-bar line w-80"></div></div>
+      </div>
+    </section>
+
+    <!-- CLASES -->
+    <section class="wf-section" id="clases">
+      <div class="section-head"><div class="ph-bar h2 w-30"></div><div class="ph-bar line w-50"></div></div>
+      <div class="cards-3">
+        <div class="ph-card class-card"><div class="ph-media tall"><span>Imagen</span></div><div class="ph-bar line w-70"></div><div class="ph-bar line w-50"></div><div class="ph-btn">Botón</div></div>
+        <div class="ph-card class-card"><div class="ph-media tall"><span>Imagen</span></div><div class="ph-bar line w-70"></div><div class="ph-bar line w-50"></div><div class="ph-btn">Botón</div></div>
+        <div class="ph-card class-card"><div class="ph-media tall"><span>Imagen</span></div><div class="ph-bar line w-70"></div><div class="ph-bar line w-50"></div><div class="ph-btn">Botón</div></div>
+      </div>
+    </section>
+
+    <!-- EVENTOS -->
+    <section class="wf-section" id="eventos">
+      <div class="section-head"><div class="ph-bar h2 w-30"></div><div class="ph-bar line w-50"></div></div>
+      <div class="event-rows">
+        <div class="event-row"><div class="ph-thumb"><span>Img</span></div><div class="event-lines"><div class="ph-bar line w-40"></div><div class="ph-bar line w-70"></div></div><div class="ph-btn small">Botón</div></div>
+        <div class="event-row"><div class="ph-thumb"><span>Img</span></div><div class="event-lines"><div class="ph-bar line w-40"></div><div class="ph-bar line w-70"></div></div><div class="ph-btn small">Botón</div></div>
+        <div class="event-row"><div class="ph-thumb"><span>Img</span></div><div class="event-lines"><div class="ph-bar line w-40"></div><div class="ph-bar line w-70"></div></div><div class="ph-btn small">Botón</div></div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="wf-section" id="galeria">
+      <div class="section-head"><div class="ph-bar h2 w-30"></div><div class="ph-bar line w-50"></div></div>
+      <div class="gallery-grid">
+        <div class="ph-media sq"><span>Img</span></div>
+        <div class="ph-media sq"><span>Img</span></div>
+        <div class="ph-media sq"><span>Img</span></div>
+        <div class="ph-media sq"><span>Img</span></div>
+        <div class="ph-media sq"><span>Img</span></div>
+        <div class="ph-media sq"><span>Img</span></div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="wf-section" id="nosotros">
+      <div class="about-grid">
+        <div class="ph-media about-media"><span>Imagen</span></div>
+        <div class="about-copy">
+          <div class="ph-bar h2 w-50"></div>
+          <div class="ph-bar line w-90"></div>
+          <div class="ph-bar line w-80"></div>
+          <div class="ph-bar line w-85"></div>
+          <div class="ph-bar line w-60"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO / CTA -->
+    <section class="wf-section" id="contacto">
+      <div class="ph-card cta-box">
+        <div class="ph-bar h1 w-60 center"></div>
+        <div class="ph-bar line w-50 center"></div>
+        <div class="ph-btn dark">Botón</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="wf-footer">
+      <div class="footer-grid">
+        <div class="footer-col"><div class="ph-bar line w-60"></div><div class="ph-bar line w-50"></div><div class="ph-bar line w-40"></div></div>
+        <div class="footer-col"><div class="ph-bar line w-60"></div><div class="ph-bar line w-50"></div><div class="ph-bar line w-40"></div></div>
+        <div class="footer-col"><div class="ph-bar line w-60"></div><div class="ph-bar line w-50"></div><div class="ph-bar line w-40"></div></div>
+      </div>
+      <div class="ph-bar line w-40 center"></div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
