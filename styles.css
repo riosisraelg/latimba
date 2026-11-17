@@ -13,12 +13,12 @@
   --accent: #e8843c; /* naranja del logo, solo para el puntito del menú */
 
   --island-header-h: 84px;
-  --menu-grid-h: 340px;
-  --island-open-h: calc(var(--island-header-h) + 24px + var(--menu-grid-h) + 66px + 4px);
+  --menu-row-h: 52px;
+  --island-open-h: calc(var(--island-header-h) + var(--menu-row-h));
 
-  /* 17% más angosto que el diseño original (760px → 631px · 1120px → 930px) */
+  /* 17% más angosto que el diseño original (760px → 631px) · expandido: +10% (631 → 694) */
   --island-w: min(631px, calc(100vw - 24px));
-  --island-w-open: min(930px, calc(100vw - 24px));
+  --island-w-open: min(694px, calc(100vw - 24px));
   --island-radius: 18px;
 }
 
@@ -33,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body.menu-open { overflow: hidden; }
+body.menu-open { overflow: visible; }
 
 /* ════════════════════════════════════════════════
    DYNAMIC ISLAND NAVBAR
@@ -65,14 +65,14 @@ body.menu-open { overflow: hidden; }
   inset: 0;
   z-index: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.42));
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.22));
+  border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.10),
-    0 2px 8px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
+    0 12px 40px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.55s cubic-bezier(0.32, 0.72, 0, 1);
@@ -203,7 +203,7 @@ body.menu-open { overflow: hidden; }
 }
 
 .island-body,
-.island-footer {
+.video-chip {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-14px);
@@ -211,107 +211,83 @@ body.menu-open { overflow: hidden; }
 }
 
 .is-open .island-body,
-.is-open .island-footer {
+.is-open .video-chip {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
   transition-delay: 0.16s;
 }
 
+/* — fila compacta del menú: links en horizontal + chip de video — */
 .island-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  flex: 0 0 var(--menu-row-h);
+  height: var(--menu-row-h);
+  display: flex;
   align-items: center;
-  height: var(--menu-grid-h);
-  padding: 16px 40px 8px;
-  overflow-y: auto;
+  gap: 12px;
+  padding: 0 18px 0 24px;
 }
 
 .menu-links {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
 .menu-link {
-  font-size: 32px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
-  line-height: 1.25;
-  width: fit-content;
-  transition: opacity 0.2s ease, transform 0.25s ease;
+  line-height: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+  transition: background 0.2s ease;
 }
-.menu-link:hover { opacity: 0.55; transform: translateX(6px); }
+.menu-link:hover { background: rgba(17, 17, 17, 0.07); }
 
-/* — placeholder de video — */
-.video-slot {
-  height: 320px;
-  border-radius: 16px;
+/* — chip de video (placeholder compacto) — */
+.video-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 14px 0 6px;
+  border-radius: 999px;
   background: var(--gray-box);
   border: 1.5px dashed var(--gray-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
+  color: var(--gray-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
-.play-btn {
-  width: 64px;
-  height: 64px;
+.video-chip .play-mini {
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #fff;
   color: var(--ink);
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
-.video-slot:hover .play-btn { transform: scale(1.08); }
-.play-btn svg { margin-left: 3px; }
+.video-chip .play-mini svg { margin-left: 1px; }
+.video-chip:hover { background: var(--gray-box-2); }
 
-.video-slot-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gray-label);
-}
-
-/* — footer del menú — */
-.island-footer {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  gap: 16px;
-  padding: 22px 40px;
-  margin-top: auto;
-  border-top: 1px solid #efefef;
-  font-size: 14px;
-  font-weight: 500;
-  color: #8a8a8a;
-  white-space: nowrap;
-}
-
-.footer-cta { display: inline-flex; align-items: center; gap: 8px; }
-.footer-cta .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-}
-
-/* — backdrop oscuro — */
+/* — backdrop oscuro suave — */
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s;
@@ -329,6 +305,7 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   max-width: 1080px;
   margin: 0 auto 72px;
   padding: 0 24px;
+  scroll-margin-top: 130px; /* deja espacio bajo el navbar fijo al navegar por anclas */
 }
 
 /* — placeholders genéricos — */
@@ -404,6 +381,33 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   gap: 14px;
   margin-bottom: 28px;
 }
+
+/* — títulos reales de las secciones (anclables desde el navbar) — */
+.wf-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2b2b2b;
+  line-height: 1.1;
+}
+
+.wf-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.wf-title a:hover { opacity: 0.55; }
+
+.wf-title a::after {
+  content: " #";
+  font-size: 0.6em;
+  font-weight: 600;
+  color: var(--gray-border);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.wf-title a:hover::after { opacity: 1; }
 
 /* — hero — */
 .hero { padding-top: 40px; }
@@ -505,9 +509,7 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
    ════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  :root { --menu-grid-h: 300px; }
-  .video-slot { height: 280px; }
-  .menu-link { font-size: 26px; }
+  .menu-link { font-size: 14px; padding: 9px 9px; }
 }
 
 @media (max-width: 680px) {
@@ -516,7 +518,7 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
     left: 10px;
     right: 10px;
     width: auto;
-    height: calc(100dvh - 20px);
+    height: auto;
     border-radius: 18px;
     transform: none;
   }
@@ -527,26 +529,15 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   .island-toggle { width: 46px; height: 46px; border-radius: 14px; }
 
   .island-body {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 18px 24px;
-    height: auto;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  .menu-links { gap: 8px; }
-  .menu-link { font-size: 24px; }
-  .video-slot { height: 200px; border-radius: 18px; }
-  .play-btn { width: 54px; height: 54px; }
-
-  .island-footer {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    font-size: 12px;
-    padding: 16px 24px 20px;
-    white-space: normal;
+    align-items: stretch;
+    height: auto;
+    padding: 6px 14px 14px;
+    gap: 8px;
   }
+  .menu-links { flex-direction: column; align-items: stretch; gap: 2px; }
+  .menu-link { font-size: 17px; padding: 11px 14px; }
+  .video-chip { height: 44px; justify-content: center; }
 
   .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-media { height: 240px; }
@@ -554,10 +545,11 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 1fr; }
   .page { padding-top: 120px; }
+  .wf-title { font-size: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .island, .island::before, .island-body, .island-footer, .island-toggle svg, .island-logo, .island-toggle, .backdrop {
+  .island, .island::before, .island-body, .island-toggle svg, .island-logo, .island-toggle, .backdrop {
     transition: none !important;
   }
 }

@@ -26,10 +26,10 @@ La única parte con diseño real de la página. Inspirado en el navbar de
 - **Hover**: al acercar el mouse al área del navbar, aparece suavemente
   (curva tipo iOS, `cubic-bezier(0.32, 0.72, 0, 1)`) la píldora completa:
   contenedor glass + logo circular + wordmark + botón de menú.
-- **Menú abierto**: la isla se expande y muestra links de navegación
-  (Clases, Eventos, Galería, Nosotros, Contacto) junto a un placeholder de
-  video (box gris claro con icono de play). El footer de la isla lleva el
-  claim: *"Ritmos latinos en Querétaro · 1 hora de clase · luego, a bailar"*.
+- **Menú abierto**: la isla se expande de forma **contenida** (+10% de
+  ancho y una fila compacta de altura) mostrando links en horizontal
+  (Clases, Eventos, Galería, Nosotros, Contacto) y un pequeño chip de video
+  (play) que indica dónde irá el video.
 
 Estilo del contenedor: **glass translúcido "iced"** (blur + saturación,
 borde blanco semitransparente) con esquinas levemente redondeadas y un ancho

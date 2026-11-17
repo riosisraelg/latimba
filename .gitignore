@@ -10,6 +10,10 @@ Thumbs.db
 # Playwright CLI (sesiones de prueba)
 .playwright-cli/
 
+# Build de la documentación (Zensical)
+docs-site/site/
+.venv/
+
 # Dependencias / builds (no aplican hoy, por si el proyecto crece)
 node_modules/
 dist/
