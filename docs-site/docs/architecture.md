@@ -31,6 +31,7 @@ latimba/
 ├─ index.html              # Landing one-page (navbar + wireframe)
 ├─ styles.css              # Tokens, navbar y placeholders del wireframe
 ├─ script.js               # Estados del navbar (open/close/reveal)
+├─ Dockerfile              # nginx:alpine — deploy en Railway (puerto 80)
 ├─ assets/
 │  └─ latimba-logo.jpg     # Isotipo (descargado a local)
 ├─ preview/                # Screenshots de verificación
@@ -161,3 +162,24 @@ flowchart LR
 | 3 | Glass con `::before` en la isla | Fondo sólido en la píldora | Permite desvanecer la capa glass sin tocar el layout del header |
 | 4 | Documentación con Zensical/`uv` | MkDocs Material, Docusaurus | Generador moderno del equipo de Material; `uv` fija entorno reproducible |
 | 5 | Logo copiado a local | Hotlink a gstatic | La URL firmada de gstatic expira; local = offline y estable |
+| 6 | Deploy en Railway con `Dockerfile` (nginx:alpine) | Static build de docs, `npx serve` | La landing es estática; nginx en el puerto 80 es liviano, sin build step y 100% predecible |
+
+---
+
+## 6. Despliegue
+
+El sitio se publica en Railway:
+
+- **Proyecto**: `latimbaqro.org` (ambiente `production`).
+- **Servicio**: conectado al repo público
+  [`riosisraelg/latimba`](https://github.com/riosisraelg/latimba), rama
+  `main` — cada push dispara un deploy automático.
+- **Dominio público**: https://latimbaqroorg-production.up.railway.app
+  (service domain `*.up.railway.app`, `targetPort: 80`).
+- **Imagen**: `Dockerfile` mínimo — `nginx:alpine` copiando
+  `index.html`, `styles.css`, `script.js` y `assets/` a
+  `/usr/share/nginx/html`. Sin build step ni dependencias de runtime.
+
+Solo la landing se despliega; `docs-site/` y `preview/` quedan fuera de
+la imagen (documentación de desarrollo, se construye localmente con
+`uv run zensical build`).

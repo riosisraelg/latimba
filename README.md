@@ -10,8 +10,10 @@ latimba/
 ├── index.html      # Estructura de la página
 ├── styles.css      # Estilos (navbar + wireframe)
 ├── script.js       # Interacciones del navbar
+├── Dockerfile      # nginx:alpine para el deploy en Railway
 ├── assets/
 │   └── latimba-logo.jpg
+├── docs-site/      # Documentación (Zensical + uv)
 └── preview/        # Screenshots de referencia
 ```
 
@@ -33,7 +35,7 @@ La única parte con diseño real de la página. Inspirado en el navbar de
 
 Estilo del contenedor: **glass translúcido "iced"** (blur + saturación,
 borde blanco semitransparente) con esquinas levemente redondeadas y un ancho
-un 17% más angosto respecto al diseño original.
+un 30% más angosto respecto al diseño original (760px → 532px).
 
 ### Detalles de implementación
 
@@ -58,3 +60,14 @@ No requiere servidor ni build. Abrir `index.html` en el navegador:
 ```bash
 open index.html
 ```
+
+## Despliegue
+
+El sitio está publicado en **https://latimbaqroorg-production.up.railway.app**.
+
+- Proyecto Railway: `latimbaqro.org` (servicio conectado a `main` de este
+  repo — cada push dispara un deploy automático).
+- Repo público: https://github.com/riosisraelg/latimba
+- El `Dockerfile` es mínimo: `nginx:alpine` sirviendo la landing en el
+  puerto 80, sin build step.
+- Local, para validar el Dockerfile: `docker build -t latimba . && docker run -p 8080:80 latimba`
