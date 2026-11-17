@@ -46,9 +46,9 @@ desplazamiento para navegar.
 | Propiedad | Valor |
 | --------- | ----- |
 | Ancho compacto | `min(532px, 100vw - 24px)` — **30% más angosto** que el diseño original (760px) |
-| Ancho expandido | `min(1040px, 100vw - 48px)` — panel grande estilo Sunday |
+| Ancho expandido | `min(638px, 100vw - 48px)` — **+20%** del ancho compacto (532px) |
 | Altura del header | `84px` |
-| Altura expandida | `556px` — header (84px) + cuerpo (400px) + footer de claims (72px) |
+| Altura expandida | `504px` — header (84px) + cuerpo (360px) + footer de claims (60px) |
 | Radio de esquinas | `18px` — **cuadrado con esquinas levemente redondeadas** |
 | Curva de animación | `cubic-bezier(0.32, 0.72, 0, 1)` (iOS), 0.5–0.55s |
 
@@ -78,8 +78,21 @@ difumina pero **deja ver el fondo real de la página**.
 ### 2.4 Placeholder de video
 
 Box **gris claro semitransparente** con borde punteado, icono de **play**
-en un círculo blanco centrado y etiqueta "VIDEO · ASÍ ES UNA TIMBA". Ocupa
+en un círculo blanco centrado y etiqueta "VIDEO · ASÍ ES LATIMBA". Ocupa
 la mitad derecha del panel; comunica que ahí irá el video de LaTimba.
+
+### 2.5 Compatibilidad verificada
+
+| Entorno | Verificación |
+| ------- | ------------ |
+| Desktop Chrome (Chromium 1440×900) | Hover reveal, panel, scroll lock + cierre por gesto (700→1100px tras cerrar) |
+| Desktop Safari (WebKit 1440×900) | Glass con `-webkit-backdrop-filter`, hover, panel, sin errores de consola |
+| iPad Pro 11 (táctil, `hover: none`) | Navbar siempre revelado vía `.no-hover`; panel en columna (560px) sin recortes |
+| iPhone 15 (táctil, 390px) | Panel a pantalla casi completa, una columna, claims apilados |
+
+CSS verificado con `CSS.supports`: `backdrop-filter`, prefijo
+`-webkit-backdrop-filter` y `100dvh` — soportados en Chrome y Safari.
+Fallback `@media (hover: none)` + clase `.no-hover` (JS) cubren táctiles.
 
 ---
 

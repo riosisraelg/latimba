@@ -26,10 +26,10 @@ La única parte con diseño real de la página. Inspirado en el navbar de
 - **Hover**: al acercar el mouse al área del navbar, aparece suavemente
   (curva tipo iOS, `cubic-bezier(0.32, 0.72, 0, 1)`) la píldora completa:
   contenedor glass + logo circular + wordmark + botón de menú.
-- **Menú abierto**: la isla se expande a un **panel grande** (links
-  apilados + placeholder de video + claims) sobre el mismo glass
-  translúcido. El scroll queda bloqueado y **cualquier gesto de scroll**
-  cierra el panel y devuelve el control para navegar.
+- **Menú abierto**: la isla se expande a un **panel** (+20% del ancho
+  base) con links apilados, placeholder de video y claims sobre el mismo
+  glass translúcido. El scroll queda bloqueado y **cualquier gesto de
+  scroll** cierra el panel y devuelve el control para navegar.
 
 Estilo del contenedor: **glass translúcido "iced"** (blur + saturación,
 borde blanco semitransparente) con esquinas levemente redondeadas y un ancho

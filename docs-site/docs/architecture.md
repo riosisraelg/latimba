@@ -119,9 +119,9 @@ scroll natural de Mac en cualquier dirección.
 ```css
 :root {
   --island-w: min(532px, calc(100vw - 24px));        /* 30% más angosto */
-  --island-w-open: min(1040px, calc(100vw - 48px));  /* panel grande estilo Sunday */
+  --island-w-open: min(638px, calc(100vw - 48px));   /* +20% del ancho base */
   --island-header-h: 84px;
-  --menu-body-h: 400px;  /* cuerpo del panel (links | video) */
+  --menu-body-h: 360px;  /* cuerpo del panel (links | video); 560px en ≤900px */
   --island-radius: 18px;
   --accent: #e8843c;     /* naranja del logo */
 }

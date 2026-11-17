@@ -78,7 +78,7 @@ El botón hamburguesa debe expandir la isla a un **panel grande**: links de
 navegación apilados en grande a la izquierda (*Clases, Eventos, Galería,
 Nosotros, Contacto*) y un **placeholder de video** a la derecha (box gris
 claro semitransparente con icono de **play** centrado y etiqueta "VIDEO ·
-ASÍ ES UNA TIMBA"). Un pie de panel lleva los claims: *"Ritmos latinos en
+ASÍ ES LATIMBA"). Un pie de panel lleva los claims: *"Ritmos latinos en
 Querétaro · 1 hora de clase · luego, a bailar · Síguenos"*.
 
 **RF-06 — Cierre del menú**

@@ -17,10 +17,10 @@
   --menu-chip-h: 44px;
 
   /* 30% más angosto que el diseño original (760px → 532px).
-     Abierto: panel grande estilo Sunday (ancho generoso, alto contenido) */
+     Abierto: +20% del ancho base (532 → 638px), panel ajustado */
   --island-w: min(532px, calc(100vw - 24px));
-  --island-w-open: min(1040px, calc(100vw - 48px));
-  --menu-body-h: 400px;
+  --island-w-open: min(638px, calc(100vw - 48px));
+  --menu-body-h: 360px;
   --island-radius: 18px;
 }
 
@@ -82,7 +82,7 @@ body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra e
 
 .island.is-open {
   width: var(--island-w-open);
-  height: calc(var(--island-header-h) + var(--menu-body-h) + 72px);
+  height: calc(var(--island-header-h) + var(--menu-body-h) + 60px);
   border-radius: 20px;
 }
 
@@ -233,10 +233,10 @@ body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra e
   flex: 0 0 var(--menu-body-h);
   height: var(--menu-body-h);
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 48px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 28px;
   align-items: center;
-  padding: 8px 48px 0;
+  padding: 8px 36px 0;
 }
 
 .menu-links {
@@ -248,7 +248,7 @@ body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra e
 }
 
 .menu-link {
-  font-size: 34px;
+  font-size: 27px;
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
@@ -260,7 +260,7 @@ body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra e
 
 /* — placeholder de video (box grande con play centrado) — */
 .video-slot {
-  height: 320px;
+  height: 272px;
   border-radius: 16px;
   background: rgba(236, 236, 236, 0.75); /* gris claro semitransparente: deja ver el fondo */
   border: 1.5px dashed var(--gray-border);
@@ -299,10 +299,11 @@ body.menu-open { overflow: hidden; } /* scroll lock: el gesto de scroll cierra e
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 48px;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  padding: 16px 36px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 500;
   color: #8a8a8a;
   white-space: nowrap;
@@ -589,15 +590,17 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
    ════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
+  :root { --menu-body-h: 560px; } /* columna única: links + video apilados sin recortes */
   .island-body {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 8px 28px 0;
+    gap: 18px;
+    padding: 12px 28px 0;
     overflow-y: auto;
   }
-  .menu-link { font-size: 26px; }
-  .video-slot { height: 220px; }
-  .island-footer { padding: 16px 28px; font-size: 12px; gap: 10px; }
+  .menu-links { gap: 2px; }
+  .menu-link { font-size: 25px; }
+  .video-slot { height: 250px; }
+  .island-footer { padding: 14px 28px; font-size: 12px; gap: 10px; }
 }
 
 @media (max-width: 680px) {
