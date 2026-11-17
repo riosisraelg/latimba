@@ -16,9 +16,13 @@
   --menu-row-h: 52px;
   --island-open-h: calc(var(--island-header-h) + var(--menu-row-h));
 
-  /* 17% más angosto que el diseño original (760px → 631px) · expandido: +10% (631 → 694) */
-  --island-w: min(631px, calc(100vw - 24px));
-  --island-w-open: min(694px, calc(100vw - 24px));
+  --island-header-h: 84px;
+  --menu-links-h: 46px;
+  --menu-chip-h: 44px;
+  /* 30% más angosto que el diseño original (760px → 532px)
+     Abierto: +10% de ese ancho (532 → 585px) */
+  --island-w: min(532px, calc(100vw - 24px));
+  --island-w-open: min(585px, calc(100vw - 24px));
   --island-radius: 18px;
 }
 
@@ -80,7 +84,7 @@ body.menu-open { overflow: visible; }
 
 .island.is-open {
   width: var(--island-w-open);
-  height: var(--island-open-h);
+  height: calc(var(--island-header-h) + 6px + var(--menu-links-h) + 8px + var(--menu-chip-h) + 14px);
   border-radius: 20px;
 }
 
@@ -218,14 +222,14 @@ body.menu-open { overflow: visible; }
   transition-delay: 0.16s;
 }
 
-/* — fila compacta del menú: links en horizontal + chip de video — */
+/* — menú compacto en dos filas: links + chip de video — */
 .island-body {
-  flex: 0 0 var(--menu-row-h);
-  height: var(--menu-row-h);
+  flex: 0 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 0 18px 0 24px;
+  gap: 8px;
+  padding: 6px 18px 14px;
 }
 
 .menu-links {
@@ -233,9 +237,9 @@ body.menu-open { overflow: visible; }
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 2px;
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 var(--menu-links-h);
 }
 
 .menu-link {
@@ -257,7 +261,7 @@ body.menu-open { overflow: visible; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 38px;
+  height: var(--menu-chip-h);
   padding: 0 14px 0 6px;
   border-radius: 999px;
   background: var(--gray-box);
@@ -268,6 +272,7 @@ body.menu-open { overflow: visible; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
+  white-space: nowrap; /* la etiqueta completa nunca se parte en dos líneas */
 }
 
 .video-chip .play-mini {
@@ -517,6 +522,21 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   color: var(--gray-label);
 }
 
+.credit-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* — icono heart de Lucide, inline (vanilla, sin npm) — */
+.heart-icon {
+  flex: 0 0 auto;
+  color: var(--accent); /* naranja del logo */
+  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.credit-bar:hover .heart-icon { transform: scale(1.25); }
+
 .credit-link {
   display: inline-flex;
   align-items: center;
@@ -560,15 +580,19 @@ body.menu-open .backdrop { opacity: 1; visibility: visible; }
   .island-toggle { width: 46px; height: 46px; border-radius: 14px; }
 
   .island-body {
-    flex-direction: column;
     align-items: stretch;
-    height: auto;
     padding: 6px 14px 14px;
     gap: 8px;
   }
-  .menu-links { flex-direction: column; align-items: stretch; gap: 2px; }
+  .menu-links {
+    flex: none;
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
   .menu-link { font-size: 17px; padding: 11px 14px; }
-  .video-chip { height: 44px; justify-content: center; }
+  .video-chip { width: 100%; justify-content: center; }
 
   .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-media { height: 240px; }

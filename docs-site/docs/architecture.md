@@ -58,7 +58,7 @@ nav.island
 ├─ ::before            → capa glass "iced" translúcida [z:0]
 ├─ .island-header      → logo · wordmark "LaTimba" · toggle     [z:1]
 └─ .island-menu
-   └─ .island-body     → fila compacta: .menu-links (horizontal) + .video-chip
+   └─ .island-body     → dos filas centradas: .menu-links + .video-chip
 ```
 
 ### 3.1 Sistema de estados
@@ -114,12 +114,13 @@ la animación de colapso no compita con el scroll).
 
 ```css
 :root {
-  --island-w: min(631px, calc(100vw - 24px));       /* 17% más angosto */
-  --island-w-open: min(694px, calc(100vw - 24px));  /* +10% al abrir */
+  --island-w: min(532px, calc(100vw - 24px));       /* 30% más angosto */
+  --island-w-open: min(585px, calc(100vw - 24px));  /* +10% al abrir */
   --island-header-h: 84px;
-  --menu-row-h: 52px;   /* fila compacta de links + chip de video */
+  --menu-links-h: 46px;  /* fila de links */
+  --menu-chip-h: 44px;   /* fila del chip de video */
   --island-radius: 18px;
-  --accent: #e8843c;    /* naranja del logo */
+  --accent: #e8843c;     /* naranja del logo */
 }
 ```
 

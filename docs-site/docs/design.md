@@ -42,10 +42,10 @@ placeholder de video; el botón rota a ✕.
 
 | Propiedad | Valor |
 | --------- | ----- |
-| Ancho compacto | `min(631px, 100vw - 24px)` — **17% más angosto** que el diseño original (760px) |
-| Ancho expandido | `min(694px, 100vw - 24px)` — **solo +10%** del ancho compacto (631px) |
+| Ancho compacto | `min(532px, 100vw - 24px)` — **30% más angosto** que el diseño original (760px) |
+| Ancho expandido | `min(585px, 100vw - 24px)` — **solo +10%** del ancho compacto (532px) |
 | Altura del header | `84px` |
-| Altura expandida | `136px` — header (84px) + una fila de menú (52px); expansión contenida |
+| Altura expandida | `202px` — header (84px) + links (46px) + chip de video (44px); expansión contenida en dos filas |
 | Radio de esquinas | `18px` — **cuadrado con esquinas levemente redondeadas** |
 | Curva de animación | `cubic-bezier(0.32, 0.72, 0, 1)` (iOS), 0.5–0.55s |
 
@@ -70,9 +70,11 @@ debajo, pero **deja ver el fondo real de la página** a través de la píldora.
 
 ### 2.4 Chip de video (placeholder)
 
-Píldora pequeña gris con borde punteado, mini círculo blanco con icono de
-**play** y la etiqueta "Video". Vive al final de la fila del menú y
-comunica — sin ocupar espacio — que ahí irá el video de LaTimba.
+Píldora gris con borde punteado, mini círculo blanco con icono de **play**
+y la etiqueta "VIDEO · ASÍ ES UNA TIMBA". Vive en su propia fila centrada
+debajo de los links — como la fila no se parte, la etiqueta completa es
+siempre visible. Comunica, sin ocupar espacio, que ahí irá el video de
+LaTimba.
 
 ---
 
@@ -109,9 +111,11 @@ su contenido sigue siendo placeholder gris:
 7. **Nosotros** — `h2` anclable (`#nosotros`) + media y párrafos placeholder
 8. **Contacto** — `h2` anclable (`#contacto`) + card central con titular y botón
 9. **Footer** — 3 columnas de links placeholder + barra de crédito con
-   **[Lyratech](https://lyratech.com.mx/)**: `© 2026 LaTimba` a la izquierda
-   y "Diseñada y desarrollada por **Lyratech** ↗" a la derecha (patrón del
-   footer de ABAQ)
+   **[Lyratech](https://lyratech.com.mx/)**: `© 2026 Hecho con ♥ para
+   LaTimba` a la izquierda (icono heart de [Lucide](https://lucide.dev)
+   inlineado como SVG estático, teñido del naranja del logo; late con
+   `scale` al hacer hover sobre la barra) y "Diseñada y desarrollada por
+   **Lyratech** ↗" a la derecha (patrón del footer de ABAQ)
 
 Todas las secciones tienen `scroll-margin-top: 130px` para que al navegar
 desde el navbar o desde un título, el heading quede visible bajo el navbar

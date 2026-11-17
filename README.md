@@ -27,9 +27,8 @@ La única parte con diseño real de la página. Inspirado en el navbar de
   (curva tipo iOS, `cubic-bezier(0.32, 0.72, 0, 1)`) la píldora completa:
   contenedor glass + logo circular + wordmark + botón de menú.
 - **Menú abierto**: la isla se expande de forma **contenida** (+10% de
-  ancho y una fila compacta de altura) mostrando links en horizontal
-  (Clases, Eventos, Galería, Nosotros, Contacto) y un pequeño chip de video
-  (play) que indica dónde irá el video.
+  ancho y dos filas compactas: links + chip de video con la etiqueta
+  "VIDEO · ASÍ ES UNA TIMBA").
 
 Estilo del contenedor: **glass translúcido "iced"** (blur + saturación,
 borde blanco semitransparente) con esquinas levemente redondeadas y un ancho
